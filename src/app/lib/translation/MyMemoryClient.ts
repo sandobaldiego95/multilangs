@@ -22,6 +22,7 @@ export async function translateText(
   text: string,
   targetLang: string
 ): Promise<string> {
+  "use server";
   const apiKey = process.env.DEEPL_API_KEY;
   if (!apiKey) {
     throw new Error("Falta DEEPL_API_KEY en .env.local");
