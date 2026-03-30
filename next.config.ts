@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
-/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-  // Excluye kokoro-js del bundle del servidor completamente.
+  // Forma oficial de excluir paquetes del bundle del servidor (Next.js 14/15)
   serverExternalPackages: ["kokoro-js"],
 
   experimental: {
-    // outputFileTracingExcludes evita que los archivos ONNX/WASM se suban a Vercel
+    // @ts-ignore - Esta propiedad es necesaria para el despliegue en Vercel
+    // pero no está en la definición de tipos actual.
     outputFileTracingExcludes: {
       "*": [
         "./node_modules/kokoro-js/**",
@@ -17,25 +17,22 @@ const nextConfig: NextConfig = {
   },
 
   webpack: (config, { isServer }) => {
-    // WASM support para el browser
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
     };
 
-    // En el servidor, marcar kokoro-js como externo
     if (isServer) {
       if (Array.isArray(config.externals)) {
         config.externals.push("kokoro-js");
       } else {
         config.externals = {
-          ...config.externals,
+          ...(config.externals as Record<string, any>),
           "kokoro-js": "commonjs kokoro-js",
         };
       }
     }
 
-    // Polyfills necesarios para evitar errores de módulos de Node en el cliente
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,

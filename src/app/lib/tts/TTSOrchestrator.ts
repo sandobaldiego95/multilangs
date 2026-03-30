@@ -107,7 +107,7 @@ export class KokoroProvider implements TTSProvider {
 }
 
 // ─── TTSOrchestrator.ts ────────────────────────────────────────
-import { LANGUAGES } from "@/lib/languages";
+import { LANGUAGES } from "../languages";
 
 export class TTSOrchestrator {
   private kokoro = new KokoroProvider();
