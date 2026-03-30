@@ -2,7 +2,7 @@
 
 import { PhraseInput } from "@/components/PhraseInput";
 import { LanguageGrid } from "@/components/LanguageGrid";
-import { useMultiLangTTS } from "@/hooks/useMultiLangTTS";
+import { useMultiLangTTS } from "@/hooks/multilang-tts";
 import styles from "./page.module.css";
 
 export default function Home() {

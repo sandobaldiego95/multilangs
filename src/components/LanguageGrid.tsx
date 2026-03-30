@@ -1,6 +1,6 @@
 "use client";
 
-import type { LangState } from "@/hooks/useMultiLangTTS";
+import type { LangState } from "@/hooks/multilang-tts";
 import styles from "./LanguageGrid.module.css";
 
 type GridProps = {
