@@ -1,0 +1,243 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* 5th card spans both columns but stays half width, centered */
+.grid > *:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc(50% - 6px);
+}
+
+/* Card base */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  animation: fadeUp 0.5s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* States */
+.cardPlaying {
+  border-color: rgba(110,89,247,0.35);
+  background: rgba(110,89,247,0.04);
+  box-shadow: 0 0 0 1px rgba(110,89,247,0.1), inset 0 0 20px rgba(110,89,247,0.03);
+}
+
+.cardReady {
+  border-color: rgba(45,212,160,0.15);
+}
+
+.cardError {
+  border-color: rgba(240,96,96,0.2);
+}
+
+/* Shimmer when translating */
+.cardTranslating::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(110,89,247,0.05), transparent);
+  animation: shimmer 1.6s linear infinite;
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* Top row */
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.langInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flag {
+  font-size: 24px;
+  line-height: 1;
+  display: block;
+}
+
+.langName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.langCode {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* Badge */
+.badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.badgeKokoro {
+  background: rgba(110,89,247,0.12);
+  color: var(--accent2);
+  border: 1px solid rgba(110,89,247,0.18);
+}
+
+.badgeWeb {
+  background: rgba(255,255,255,0.04);
+  color: var(--muted2);
+  border: 1px solid var(--border);
+}
+
+/* Translation area */
+.translationArea {
+  min-height: 44px;
+  flex: 1;
+}
+
+.translation {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 18px;
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.errorText {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--red);
+  line-height: 1.4;
+}
+
+/* Skeleton loader */
+.skeletonWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton {
+  height: 14px;
+  background: var(--surface2);
+  border-radius: 4px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+/* Play button */
+.playBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  color: var(--muted2);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s;
+  align-self: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.playBtn:hover:not(:disabled) {
+  border-color: rgba(110,89,247,0.35);
+  color: var(--accent2);
+  background: rgba(110,89,247,0.06);
+}
+
+.playBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.playBtnActive {
+  color: var(--accent2);
+  border-color: rgba(110,89,247,0.35);
+  background: rgba(110,89,247,0.08);
+}
+
+.playIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.playLabel {
+  font-weight: 500;
+}
+
+/* Wave animation */
+.wave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 2px;
+}
+
+.waveBar {
+  display: block;
+  width: 2px;
+  height: 10px;
+  background: var(--accent2);
+  border-radius: 1px;
+  animation: waveBar 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes waveBar {
+  from { height: 4px; opacity: 0.5; }
+  to   { height: 12px; opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .grid > *:last-child:nth-child(odd) {
+    grid-column: auto;
+    justify-self: auto;
+    width: 100%;
+  }
+}
