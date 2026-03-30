@@ -10,6 +10,9 @@
  */
 
 // DeepL usa sus propios códigos de idioma (no BCP-47 estándar)
+
+"use server";
+
 const DEEPL_LANG_MAP: Record<string, string> = {
   it: "IT",
   en: "EN-US",
