@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   // Forma oficial de excluir paquetes del bundle del servidor (Next.js 14/15)
   serverExternalPackages: ["kokoro-js"],
 
-  experimental: {
+  
     // @ts-ignore - Esta propiedad es necesaria para el despliegue en Vercel
     // pero no está en la definición de tipos actual.
     outputFileTracingExcludes: {
@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
         "./node_modules/@huggingface/**",
       ],
     },
-  },
+  
 
   webpack: (config, { isServer }) => {
     config.experiments = {
